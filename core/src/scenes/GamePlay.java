@@ -128,7 +128,7 @@ public class GamePlay implements Screen, ContactListener {
 //		game.getBatch().draw(player, player.getX(),player.getY());
 //		game.getBatch().draw(player, player.getX(), player.getY(), 0, 0, player.getWidth(), player.getHeight(),
 //				1,1,player.getRotation(), false);
-		game.getBatch().draw(planet, planet.getX() - planet.getWidth()/2, planet.getY() - planet.getHeight()/2);
+//		game.getBatch().draw(planet, planet.getX() - planet.getWidth()/2, planet.getY() - planet.getHeight()/2);
 		game.getBatch().draw(planet1, planet1.getX() - planet1.getWidth()/2, planet1.getY() - planet1.getHeight()/2);
 		game.getBatch().end();
 		

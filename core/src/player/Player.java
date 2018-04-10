@@ -61,8 +61,6 @@ public class Player extends Sprite {
 		this.setPosition((body.getPosition().x) * GameInfo.PPM, 
 				body.getPosition().y * GameInfo.PPM);
 		this.setRotation((float)Math.toDegrees(body.getAngle()));
-//		System.out.format("%f,%f - %f,%f\n", body.getPosition().x,body.getPosition().y, getX(), getY());
-//		System.out.println(String.valueOf(this.getRotation()));
 	}
 	
 	public Body getBody() {

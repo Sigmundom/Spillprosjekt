@@ -8,6 +8,7 @@ import helpers.GameInfo;
 
 public class DesktopLauncher {
 	public static void main (String[] arg) {
+		System.out.println("hei");
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		
 		config.width = GameInfo.WIDTH;

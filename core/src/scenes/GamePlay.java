@@ -1,9 +1,9 @@
 package scenes;
 
+import java.io.BufferedInputStream;
 import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
+import javax.sound.sampled.*;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -51,6 +51,8 @@ public class GamePlay implements Screen, ContactListener {
 		
 		debugRenderer = new Box2DDebugRenderer();
 		
+//		debugRenderer.setDrawBodies(true);
+		
 		world = new World(new Vector2(0,0), true);
 		
 		world.setContactListener(this);
@@ -65,12 +67,21 @@ public class GamePlay implements Screen, ContactListener {
 		sb = new SpriteBatch();
 		
 		try {
-			InputStream test = new FileInputStream("C:\\Users\\Hanna\\Music\\universe01.wav");
-//			AudioStream test = new AudioStream(test);
-			test.close();
+			AudioInputStream test = AudioSystem.getAudioInputStream(new BufferedInputStream(new FileInputStream("universe01.wav")));
+				AudioFormat af = test.getFormat();
+				Clip clip1 = AudioSystem.getClip();
+				DataLine.Info info = new DataLine.Info(Clip.class, af);
+				
+				Line line1 = AudioSystem.getLine(info);
+				
+				if(!line1.isOpen()) {
+					clip1.open(test);
+					clip1.loop(Clip.LOOP_CONTINUOUSLY);
+					clip1.start();
+				}
 		}
-		catch (IOException ioe) {
-			System.out.println(ioe);
+		catch (Exception ioe) {
+			ioe.printStackTrace();
 		}
 	}
 	
@@ -111,6 +122,23 @@ public class GamePlay implements Screen, ContactListener {
 					player.getY() + (player.getHeight()+20)*cos(0) + (player.getWidth()/2)*sin(0), 
 					-4 * sin(0), 4 * cos(0), 
 					(float)Math.toDegrees(player.getBody().getAngle())));
+			
+			try {
+				AudioInputStream blaster = AudioSystem.getAudioInputStream(new BufferedInputStream(new FileInputStream("blaster-firing.wav")));
+					AudioFormat af = blaster.getFormat();
+					Clip clip2 = AudioSystem.getClip();
+					DataLine.Info info = new DataLine.Info(Clip.class, af);
+					
+					Line line1 = AudioSystem.getLine(info);
+					
+					if(!line1.isOpen()) {
+						clip2.open(blaster);
+						clip2.start();
+					}
+			}
+			catch (Exception ioe) {
+				ioe.printStackTrace();
+			}
 		}
 	}
 	
@@ -130,16 +158,15 @@ public class GamePlay implements Screen, ContactListener {
 			p.updateProjectile();			
 		}
 		
+		box2DCamera.position.set(player.getX(), player.getY(),0);
+		box2DCamera.update();
+		
 		Gdx.gl.glClearColor(1, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
+		game.getBatch().setProjectionMatrix(box2DCamera.combined);
 		game.getBatch().begin();
 		game.getBatch().draw(bg, 0, 0);
-//		game.getBatch().draw(player, player.getX(), player.getY(),0, 0, player.getWidth(), player.getHeight(),
-//				1,1,player.getRotation());
-//		game.getBatch().draw(player, player.getX(),player.getY());
-//		game.getBatch().draw(player, player.getX(), player.getY(), 0, 0, player.getWidth(), player.getHeight(),
-//				1,1,player.getRotation(), false);
 		game.getBatch().draw(planet, planet.getX() - planet.getWidth()/2, planet.getY() - planet.getHeight()/2);
 		game.getBatch().draw(planet1, planet1.getX() - planet1.getWidth()/2, planet1.getY() - planet1.getHeight()/2);
 		game.getBatch().end();
@@ -151,7 +178,6 @@ public class GamePlay implements Screen, ContactListener {
 			p.draw(sb);			
 		}
 		sb.end();
-		
 		
 		debugRenderer.render(world, box2DCamera.combined);
 		

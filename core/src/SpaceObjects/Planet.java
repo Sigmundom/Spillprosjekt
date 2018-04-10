@@ -60,7 +60,7 @@ void createBody() {
 		float r = (getWidth() / 2) / GameInfo.PPM;
 		float[] fArr = new float[2*n];;
 		for(int i=0; i<n; i++) {
-			double t = i * 2* Math.PI/(n+1);
+			double t = i * 2* Math.PI/(n);
 			fArr[2*i] = (float) (r * Math.cos(t));
 			fArr[2*i+1] = (float) (r * Math.sin(t));
 		}

@@ -76,7 +76,7 @@ public class GamePlay implements Screen, ContactListener {
 			System.out.println(String.valueOf(player.getBody().getAngle()));
 		} 
 		if (Gdx.input.isKeyPressed(Input.Keys.S)) {
-			player.getBody().applyLinearImpulse(new Vector2(0.01f*sin(0),
+			player.getBody().applyLinearImpulse(new Vector2(0.005f*sin(0),
 					-0.01f*cos(0)), player.getBody().getWorldCenter(), true);
 		}
 		if(Gdx.input.isKeyPressed(Input.Keys.Q)) {
@@ -128,7 +128,7 @@ public class GamePlay implements Screen, ContactListener {
 //		game.getBatch().draw(player, player.getX(),player.getY());
 //		game.getBatch().draw(player, player.getX(), player.getY(), 0, 0, player.getWidth(), player.getHeight(),
 //				1,1,player.getRotation(), false);
-//		game.getBatch().draw(planet, planet.getX() - planet.getWidth()/2, planet.getY() - planet.getHeight()/2);
+		game.getBatch().draw(planet, planet.getX() - planet.getWidth()/2, planet.getY() - planet.getHeight()/2);
 		game.getBatch().draw(planet1, planet1.getX() - planet1.getWidth()/2, planet1.getY() - planet1.getHeight()/2);
 		game.getBatch().end();
 		

@@ -56,21 +56,6 @@ void createBody() {
 		
 	}
 
-//	private Vector2[] fxCircle(int n) {
-//		float r = getWidth() / 2;
-//		Vector2[] vArr = new Vector2[n];;
-//		for(int i=0; i<n; i++) {
-//			double t = i * 2* Math.PI/n;
-//			float x = (float) (r * Math.cos(t));
-//			float y = (float) (r * Math.sin(t));
-//			vArr[i] = new Vector2(x,y);
-//		}
-//		for(int i=0; i<n; i++ ) {
-//			System.out.println(vArr[i].toString());
-//		}
-//		return vArr;
-//	}
-
 	private float[] fxCircle(int n) {
 		float r = (getWidth() / 2) / GameInfo.PPM;
 		float[] fArr = new float[2*n];;
@@ -79,9 +64,6 @@ void createBody() {
 			fArr[2*i] = (float) (r * Math.cos(t));
 			fArr[2*i+1] = (float) (r * Math.sin(t));
 		}
-//		for(int i=0; i<2*n; i++ ) {
-//			System.out.println(String.valueOf(fArr[i]));
-//		}
 		return fArr;
 	}
 

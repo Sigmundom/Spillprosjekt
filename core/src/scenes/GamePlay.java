@@ -1,5 +1,8 @@
 package scenes;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
@@ -62,6 +65,15 @@ public class GamePlay implements Screen, ContactListener {
 		planet1 = new Planet(world, "Planet1.png", GameInfo.WIDTH / 4, GameInfo.HEIGHT / 2);
 		
 		sb = new SpriteBatch();
+		
+		try {
+			InputStream test = new FileInputStream("C:\\Users\\Hanna\\Music\\universe01.wav");
+//			AudioStream test = new AudioStream(test);
+			test.close();
+		}
+		catch (IOException ioe) {
+			System.out.println(ioe);
+		}
 	}
 	
 	void update(float dt) {

@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.Contact;
@@ -40,6 +41,7 @@ public class GamePlay implements Screen, ContactListener {
 	private OrthographicCamera box2DCamera;
 	private Box2DDebugRenderer debugRenderer;
 	private SpriteBatch sb;
+	private Matrix4 debugMatrix;
 	
 	
 	public GamePlay(GameMain game) {
@@ -48,6 +50,9 @@ public class GamePlay implements Screen, ContactListener {
 		box2DCamera = new OrthographicCamera();
 		box2DCamera.setToOrtho(false, GameInfo.WIDTH, GameInfo.HEIGHT);
 		box2DCamera.position.set(GameInfo.WIDTH * GameInfo.PPM / 2f, GameInfo.HEIGHT * GameInfo.PPM / 2f, 0);
+		
+		debugMatrix = new Matrix4(box2DCamera.combined);
+		debugMatrix.scale(GameInfo.PPM, GameInfo.PPM, 1);
 		
 		debugRenderer = new Box2DDebugRenderer();
 		
@@ -87,7 +92,6 @@ public class GamePlay implements Screen, ContactListener {
 		if (Gdx.input.isKeyPressed(Input.Keys.W)) {
 			player.getBody().applyLinearImpulse(new Vector2(-0.005f*sin(0),
 					0.005f*cos(0)), player.getBody().getWorldCenter(), true);
-			System.out.println(String.valueOf(player.getBody().getAngle()));
 		} 
 		if (Gdx.input.isKeyPressed(Input.Keys.S)) {
 			player.getBody().applyLinearImpulse(new Vector2(0.005f*sin(0),
@@ -153,7 +157,7 @@ public class GamePlay implements Screen, ContactListener {
 		}
 		sb.end();
 		
-		debugRenderer.render(world, box2DCamera.combined);
+		debugRenderer.render(world, debugMatrix);
 		
 		world.step(Gdx.graphics.getDeltaTime(), 6, 2);
 		

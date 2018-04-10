@@ -1,10 +1,8 @@
 package scenes;
 
-<<<<<<< HEAD
-=======
+
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
->>>>>>> 4d2d24a5e0e174bee9d3868b5dfac9e4bd60736f
 import java.util.ArrayList;
 import javax.sound.sampled.*;
 
@@ -68,8 +66,6 @@ public class GamePlay implements Screen, ContactListener {
 		planet1 = new Planet(world, "Planet1.png", GameInfo.WIDTH / 4, GameInfo.HEIGHT / 2);
 		
 		sb = new SpriteBatch();
-<<<<<<< HEAD
-=======
 		
 		try {
 			AudioInputStream test = AudioSystem.getAudioInputStream(new BufferedInputStream(new FileInputStream("universe01.wav")));
@@ -88,7 +84,6 @@ public class GamePlay implements Screen, ContactListener {
 		catch (Exception ioe) {
 			ioe.printStackTrace();
 		}
->>>>>>> 4d2d24a5e0e174bee9d3868b5dfac9e4bd60736f
 	}
 	
 	void update(float dt) {

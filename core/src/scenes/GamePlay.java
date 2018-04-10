@@ -1,9 +1,9 @@
 package scenes;
 
+import java.io.BufferedInputStream;
 import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
+import javax.sound.sampled.*;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -67,12 +67,21 @@ public class GamePlay implements Screen, ContactListener {
 		sb = new SpriteBatch();
 		
 		try {
-			InputStream test = new FileInputStream("C:\\Users\\Hanna\\Music\\universe01.wav");
-//			AudioStream test = new AudioStream(test);
-			test.close();
+			AudioInputStream test = AudioSystem.getAudioInputStream(new BufferedInputStream(new FileInputStream("universe01.wav")));
+				AudioFormat af = test.getFormat();
+				Clip clip1 = AudioSystem.getClip();
+				DataLine.Info info = new DataLine.Info(Clip.class, af);
+				
+				Line line1 = AudioSystem.getLine(info);
+				
+				if(!line1.isOpen()) {
+					clip1.open(test);
+					clip1.loop(Clip.LOOP_CONTINUOUSLY);
+					clip1.start();
+				}
 		}
-		catch (IOException ioe) {
-			System.out.println(ioe);
+		catch (Exception ioe) {
+			ioe.printStackTrace();
 		}
 	}
 	
@@ -113,6 +122,23 @@ public class GamePlay implements Screen, ContactListener {
 					player.getY() + (player.getHeight()+20)*cos(0) + (player.getWidth()/2)*sin(0), 
 					-4 * sin(0), 4 * cos(0), 
 					(float)Math.toDegrees(player.getBody().getAngle())));
+			
+			try {
+				AudioInputStream blaster = AudioSystem.getAudioInputStream(new BufferedInputStream(new FileInputStream("blaster-firing.wav")));
+					AudioFormat af = blaster.getFormat();
+					Clip clip2 = AudioSystem.getClip();
+					DataLine.Info info = new DataLine.Info(Clip.class, af);
+					
+					Line line1 = AudioSystem.getLine(info);
+					
+					if(!line1.isOpen()) {
+						clip2.open(blaster);
+						clip2.start();
+					}
+			}
+			catch (Exception ioe) {
+				ioe.printStackTrace();
+			}
 		}
 	}
 	
